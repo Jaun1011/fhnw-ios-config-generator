@@ -19,11 +19,13 @@ const Interface = (
         const ifFullName = ifName + plugin
 
         const ipv4Cmd = `ip address ${network[hostname + "_ipv4"]} ${network.netmask}`;
-        const ipv6Cmd = network[hostname + "_ipv6"] != undefined
+
+        const ipv6Exist = network[hostname + "_ipv6"] !== undefined;
+        const ipv6Cmd = ipv6Exist
             ? `ipv6 address ${network[hostname + "_ipv6"]}/${network.prefix_ipv6}`
             : "";
 
-        const ospfIpv6Cmd =  network[hostname + "_ipv6"] != undefined && !ospfPassive && !ospfInactive && processId != -1
+        const ospfIpv6Cmd =  ipv6Exist && !ospfPassive && !ospfInactive && processId !== -1
             ? `ipv6 ospf ${processId} area ${network.area}`
             : "";
 

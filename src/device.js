@@ -22,7 +22,7 @@ const Password  = (configPw, enablePw, encypt = false) => `
             : ""
         }`;
 
-        
+
 export const Switch = host => vlan => gateway =>`
         configure terminal
             hostname ${host}
@@ -32,10 +32,15 @@ export const Switch = host => vlan => gateway =>`
     
             ${InterfaceVlan (vlan)}
             ip default-gateway ${gateway}`;
-    
 
-export const Router = (host, ipv6Enabled = false, ospfProcessId = 1, baseconfig = false) => (interfaces) => {
-    
+
+export const Router = (
+    host,
+    ipv6Enabled = false,
+    ospfProcessId = 1,
+    baseconfig = false
+) => (interfaces) => {
+
     const ifs        = interfaces.map(fn => fn(host, ospfProcessId));
     const ospfId     = ifs.map(i => i.ipv4).sort().reverse()[0];
 
